@@ -46,6 +46,7 @@ namespace RainbowRewards
         public static ConfigEntry<bool> EnableMod { get; set; }
         public static ConfigEntry<bool> EnableDebugging { get; set; }
         public static ConfigEntry<bool> IncreaseCardsTo4 { get; set; }
+        public static ConfigEntry<bool> ForceOneOfEach { get; set; }
         // public static ConfigEntry<bool> EnablePerkChangeWhenever { get; set; }
         // public static bool EnablePerkChangeInTownsMP { get; set; }
         // public static bool EnablePerkChangeWheneverMP { get; set; }
@@ -69,6 +70,7 @@ namespace RainbowRewards
             EnableMod = Config.Bind(new ConfigDefinition(modName, "EnableMod"), true, new ConfigDescription("Enables the mod. If false, the mod will not work then next time you load the game."));
             EnableDebugging = Config.Bind(new ConfigDefinition(modName, "EnableDebugging"), false, new ConfigDescription("Enables the debugging"));
             IncreaseCardsTo4 = Config.Bind(new ConfigDefinition(modName, "IncreaseCardsToFour"), true, new ConfigDescription("Sets the card rewards for everyone to always give 4 cards."));
+            ForceOneOfEach = Config.Bind(new ConfigDefinition(modName, "ForceOneOfEach"), true, new ConfigDescription("Forces every combat to give 1 card of each type. Setting to false gives a random distribution."));
             // EnablePerkChangeInTownsMP = true; // = Config.Bind(new ConfigDefinition(modName, "EnablePerkChangeInTownsMP"), true, new ConfigDescription("Enables you to change perks in any town for multiplayer."));
             // EnablePerkChangeWhenever = Config.Bind(new ConfigDefinition(modName, "EnablePerkChangeWhenever"), false, new ConfigDescription("Enables you to change perks at any time."));
             // EnablePerkChangeWheneverMP = true; //Config.Bind(new ConfigDefinition(modName, "EnablePerkChangeWheneverMP"), false, new ConfigDescription("Enables you to change perks at any time for Multiplayer."));

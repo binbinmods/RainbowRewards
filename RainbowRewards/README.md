@@ -1,6 +1,6 @@
 # Rainbow Rewards
 
-This is a simple mod that does ...
+A mod that makes all card rewards able to be from any class
 
 To change the configs, just open up the config menu by pressing F5 and then changing the appropriate values. Restarting the game is only necessary when enabling/disabling the mod.
 
@@ -8,10 +8,12 @@ Let me know if you have any other options you would like to add to the mod!
 
 This has not been tested in multiplayer yet, so let me know if there are any issues!
 
-| Config          | Default | Explanation                                                                                 |
-| :-------------- | :-----: | :------------------------------------------------------------------------------------------ |
-| EnableMod       |  true   | Enables the mod. Restart the game after changing this.                                      |
-| EnableDebugging |  true   | Enables debugging for if errors occur. Please enable this before submitting a LogOutput.log |
+| Config              | Default | Explanation                                                                                    |
+| :------------------ | :-----: | :--------------------------------------------------------------------------------------------- |
+| EnableMod           |  true   | Enables the mod. Restart the game after changing this.                                         |
+| EnableDebugging     |  true   | Enables debugging for if errors occur. Please enable this before submitting a LogOutput.log    |
+| IncreaseCardsToFour |  true   | Sets the card rewards for everyone to always give 4 cards.                                     |
+| ForceOneOfEach      |  true   | Forces every combat to give 1 card of each type. Setting to false gives a random distribution. |
 
 ## Installation (manual)
 

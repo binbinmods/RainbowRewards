@@ -2,6 +2,6 @@
   "name": "Mod_Name_To_Replace",
   "version_number": "1.0.0",
   "website_url": "https://github.com/binbinmods/RainbowRewards",
-  "description": "A mod that ...",
+  "description": "A mod that makes all card rewards able to be from any class",
   "dependencies": ["BepInEx-BepInExPack_AcrossTheObelisk-5.4.23"]
 }

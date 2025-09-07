@@ -75,7 +75,8 @@ namespace RainbowRewards
 
                 for (int index1 = 0; index1 < length; ++index1)
                 {
-                    _cardData = GetRandomCardByClass((Enums.CardClass)index1, ___tierReward, arr);
+                    Enums.CardClass cardClass = ForceOneOfEach.Value ? (Enums.CardClass)index1 : (Enums.CardClass)UnityEngine.Random.Range(0, 4);
+                    _cardData = GetRandomCardByClass(cardClass, ___tierReward, arr);
                     arr[index1] = _cardData.Id;
                 }
                 ___cardsByOrder[key] = Functions.ShuffleArray<string>(arr);
