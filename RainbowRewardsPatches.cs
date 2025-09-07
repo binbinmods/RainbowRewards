@@ -69,15 +69,20 @@ namespace RainbowRewards
                 UnityEngine.Random.InitState((AtOManager.Instance.currentMapNode + key + AtOManager.Instance.GetGameId()).GetDeterministicHashCode());
                 // int randInt = UnityEngine.Random.Range(0, 100); 
                 Hero hero = ___theTeam[key];
-                int length = ___numCardsReward;
-                string[] arr = new string[length];
+                string[] arr = new string[___numCardsReward];
                 Dictionary<Enums.CardClass, List<string>> dictionary = Globals.Instance.CardListNotUpgradedByClass;
 
-                for (int index1 = 0; index1 < length; ++index1)
+                for (int index1 = 0; index1 < ___numCardsReward; ++index1)
                 {
+                    bool addRainbowCards = !AddRainbowItem.Value || AtOManager.Instance.TeamHaveItem("rainbowrewardsrainbowprism") || AtOManager.Instance.TeamHaveItem("rainbowrewardsrainbowprismrare");
+                    if (!addRainbowCards)
+                    {
+                        continue;
+                    }
                     Enums.CardClass cardClass = ForceOneOfEach.Value ? (Enums.CardClass)index1 : (Enums.CardClass)UnityEngine.Random.Range(0, 4);
                     _cardData = GetRandomCardByClass(cardClass, ___tierReward, arr);
                     arr[index1] = _cardData.Id;
+
                 }
                 ___cardsByOrder[key] = Functions.ShuffleArray<string>(arr);
 

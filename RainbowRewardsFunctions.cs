@@ -21,6 +21,10 @@ namespace RainbowRewards
             List<string> stringList1 = new List<string>(Globals.Instance.CardListNotUpgradedByClass[cardClass]);
             int num10 = UnityEngine.Random.Range(0, 100);
             bool flag2 = true;
+            if (AtOManager.Instance.TeamHaveItem("rainbowrewardsrainbowprismrare"))
+            {
+                tierReward = Globals.Instance.GetTierRewardData(tierReward.TierNum + 1) ?? tierReward;
+            }
             while (flag2)
             {
                 flag2 = false;

@@ -47,6 +47,7 @@ namespace RainbowRewards
         public static ConfigEntry<bool> EnableDebugging { get; set; }
         public static ConfigEntry<bool> IncreaseCardsTo4 { get; set; }
         public static ConfigEntry<bool> ForceOneOfEach { get; set; }
+        public static ConfigEntry<bool> AddRainbowItem { get; set; }
         // public static ConfigEntry<bool> EnablePerkChangeWhenever { get; set; }
         // public static bool EnablePerkChangeInTownsMP { get; set; }
         // public static bool EnablePerkChangeWheneverMP { get; set; }
@@ -71,10 +72,7 @@ namespace RainbowRewards
             EnableDebugging = Config.Bind(new ConfigDefinition(modName, "EnableDebugging"), false, new ConfigDescription("Enables the debugging"));
             IncreaseCardsTo4 = Config.Bind(new ConfigDefinition(modName, "IncreaseCardsToFour"), true, new ConfigDescription("Sets the card rewards for everyone to always give 4 cards."));
             ForceOneOfEach = Config.Bind(new ConfigDefinition(modName, "ForceOneOfEach"), true, new ConfigDescription("Forces every combat to give 1 card of each type. Setting to false gives a random distribution."));
-            // EnablePerkChangeInTownsMP = true; // = Config.Bind(new ConfigDefinition(modName, "EnablePerkChangeInTownsMP"), true, new ConfigDescription("Enables you to change perks in any town for multiplayer."));
-            // EnablePerkChangeWhenever = Config.Bind(new ConfigDefinition(modName, "EnablePerkChangeWhenever"), false, new ConfigDescription("Enables you to change perks at any time."));
-            // EnablePerkChangeWheneverMP = true; //Config.Bind(new ConfigDefinition(modName, "EnablePerkChangeWheneverMP"), false, new ConfigDescription("Enables you to change perks at any time for Multiplayer."));
-
+            AddRainbowItem = Config.Bind(new ConfigDefinition(modName, "AddRainbowItem"), false, new ConfigDescription("Enables the Rainbow Prism item which enables the random cards only with the item. Requires restart and the Obeliskial Content package."));
 
 
             // DevMode = Config.Bind(new ConfigDefinition("DespairMode", "DevMode"), false, new ConfigDescription("Enables all of the things for testing."));
@@ -83,17 +81,26 @@ namespace RainbowRewards
             EssentialsInstalled = Chainloader.PluginInfos.ContainsKey("com.stiffmeds.obeliskialessentials");
 
             // Register with Obeliskial Essentials
-            if (EssentialsInstalled)
+            if (EssentialsInstalled && EnableMod.Value)
             {
+                bool addContentPack = AddRainbowItem.Value && Chainloader.PluginInfos.ContainsKey("com.stiffmeds.obeliskialcontent");
                 RegisterMod(
                     _name: PluginInfo.PLUGIN_NAME,
                     _author: "binbin",
                     _description: "Rainbow Rewards",
                     _version: PluginInfo.PLUGIN_VERSION,
                     _date: ModDate,
+                    _contentFolder: addContentPack ? "RainbowRewards" : null,
                     _link: @"https://github.com/binbinmods/RainbowRewards"
                 );
+                if (addContentPack)
+                {
+                    string text = "Card Rewards come from all classes.";
+                    AddTextToCardDescription(text, TextLocation.End, "rainbowrewardsrainbowprism", includeRare: true);
+                    text = "Card Reward Tier +1.";
+                    AddTextToCardDescription(text, TextLocation.ItemBeforeActivation, "rainbowrewardsrainbowprismrare", includeRare: false);
 
+                }
             }
 
             // apply patches, this functionally runs all the code for Harmony, running your mod
