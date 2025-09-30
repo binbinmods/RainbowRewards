@@ -9,6 +9,7 @@ using static Obeliskial_Essentials.CardDescriptionNew;
 using BepInEx.Bootstrap;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 
 // The Plugin csharp file is used to specify some general info about your plugin. and set up things for 
@@ -25,6 +26,7 @@ namespace RainbowRewards
     // If you have other dependencies, such as obeliskial content, make sure to include them here.
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     [BepInDependency("com.stiffmeds.obeliskialessentials", BepInDependency.DependencyFlags.SoftDependency)] // this is the name of the .dll in the !libs folder.
+    [BepInDependency("com.stiffmeds.obeliskialcontent", BepInDependency.DependencyFlags.SoftDependency)] // this is the name of the .dll in the !libs folder.
     [BepInProcess("AcrossTheObelisk.exe")] //Don't change this
 
     // If PluginInfo isn't working, you are either:
@@ -53,7 +55,7 @@ namespace RainbowRewards
         // public static bool EnablePerkChangeWheneverMP { get; set; }
 
 
-        internal int ModDate = int.Parse(DateTime.Today.ToString("yyyyMMdd"));
+        internal static int ModDate = int.Parse(DateTime.Today.ToString("yyyyMMdd"));
         private readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
         internal static ManualLogSource Log;
 
@@ -78,30 +80,7 @@ namespace RainbowRewards
             // DevMode = Config.Bind(new ConfigDefinition("DespairMode", "DevMode"), false, new ConfigDescription("Enables all of the things for testing."));
 
 
-            EssentialsInstalled = Chainloader.PluginInfos.ContainsKey("com.stiffmeds.obeliskialessentials");
-
-            // Register with Obeliskial Essentials
-            if (EssentialsInstalled && EnableMod.Value)
-            {
-                bool addContentPack = AddRainbowItem.Value && Chainloader.PluginInfos.ContainsKey("com.stiffmeds.obeliskialcontent");
-                RegisterMod(
-                    _name: PluginInfo.PLUGIN_NAME,
-                    _author: "binbin",
-                    _description: "Rainbow Rewards",
-                    _version: PluginInfo.PLUGIN_VERSION,
-                    _date: ModDate,
-                    _contentFolder: addContentPack ? "RainbowRewards" : null,
-                    _link: @"https://github.com/binbinmods/RainbowRewards"
-                );
-                if (addContentPack)
-                {
-                    string text = "Card Rewards come from all classes.";
-                    AddTextToCardDescription(text, TextLocation.End, "rainbowrewardsrainbowprism", includeRare: true);
-                    text = "Card Reward Tier +1.";
-                    AddTextToCardDescription(text, TextLocation.ItemBeforeActivation, "rainbowrewardsrainbowprismrare", includeRare: false);
-
-                }
-            }
+            EssentialsRegister();
 
             // apply patches, this functionally runs all the code for Harmony, running your mod
             if (EnableMod.Value) { harmony.PatchAll(); }
@@ -124,6 +103,35 @@ namespace RainbowRewards
         internal static void LogError(string msg)
         {
             Log.LogError(debugBase + msg);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        internal static void EssentialsRegister()
+        {
+            EssentialsInstalled = Chainloader.PluginInfos.ContainsKey("com.stiffmeds.obeliskialessentials");
+
+            // Register with Obeliskial Essentials
+            if (EssentialsInstalled && EnableMod.Value)
+            {
+                bool addContentPack = AddRainbowItem.Value && Chainloader.PluginInfos.ContainsKey("com.stiffmeds.obeliskialcontent");
+                RegisterMod(
+                    _name: PluginInfo.PLUGIN_NAME,
+                    _author: "binbin",
+                    _description: "Rainbow Rewards",
+                    _version: PluginInfo.PLUGIN_VERSION,
+                    _date: ModDate,
+                    _contentFolder: addContentPack ? "RainbowRewards" : "",
+                    _link: @"https://github.com/binbinmods/RainbowRewards"
+                );
+                if (addContentPack)
+                {
+                    string text = "Card Rewards come from all classes.";
+                    AddTextToCardDescription(text, TextLocation.End, "rainbowrewardsrainbowprism", includeRare: true);
+                    text = "Card Reward Tier +1.";
+                    AddTextToCardDescription(text, TextLocation.Beginning, "rainbowrewardsrainbowprismrare", includeRare: false);
+
+                }
+            }
         }
     }
 }

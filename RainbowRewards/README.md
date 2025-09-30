@@ -14,7 +14,7 @@ This has not been tested in multiplayer yet, so let me know if there are any iss
 | EnableDebugging     |  true   | Enables debugging for if errors occur. Please enable this before submitting a LogOutput.log                                                |
 | IncreaseCardsToFour |  true   | Sets the card rewards for everyone to always give 4 cards.                                                                                 |
 | ForceOneOfEach      |  true   | Forces every combat to give 1 card of each type. Setting to false gives a random distribution.                                             |
-| AddRainbowItem      |  false  | Enables the Rainbow Prism item which enables the random cards only with the item. Requires restart and the Obeliskial Essentials package.. |
+| AddRainbowItem      |  false  | Enables the Rainbow Prism item which enables the random cards only with the item. Requires restart and the Obeliskial Content package. |
 
 ## Installation (manual)
 
