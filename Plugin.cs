@@ -125,9 +125,9 @@ namespace RainbowRewards
                 );
                 if (addContentPack)
                 {
-                    string text = "Card Rewards come from all classes.";
-                    AddTextToCardDescription(text, TextLocation.End, "rainbowrewardsrainbowprism", includeRare: true);
-                    text = "Card Reward Tier +1.";
+                    string text = "Card Rewards come from all classes";
+                    AddTextToCardDescription(text, TextLocation.End, "rainbowrewardsrainbowprism", includeRare: false);
+                    text = "Card Rewards come from all classes\nCard Reward Tier +1";
                     AddTextToCardDescription(text, TextLocation.Beginning, "rainbowrewardsrainbowprismrare", includeRare: false);
 
                 }

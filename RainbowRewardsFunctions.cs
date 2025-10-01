@@ -21,9 +21,19 @@ namespace RainbowRewards
             List<string> stringList1 = new List<string>(Globals.Instance.CardListNotUpgradedByClass[cardClass]);
             int num10 = UnityEngine.Random.Range(0, 100);
             bool flag2 = true;
-            if (AtOManager.Instance.TeamHaveItem("rainbowrewardsrainbowprismrare"))
+            if (AtOManager.Instance?.TeamHaveItem("rainbowrewardsrainbowprismrare") ?? false)
             {
-                tierReward = Globals.Instance.GetTierRewardData(tierReward.TierNum + 1) ?? tierReward;
+                tierReward = Globals.Instance?.GetTierRewardData(tierReward.TierNum + 1) ?? tierReward;
+            }
+            bool testing = true;
+            if (testing)
+            {
+                tierReward = Globals.Instance.GetTierRewardData(4);
+            }
+            if (tierReward == null)
+            {
+                LogError("GetRandomCardByClass - Null Tier Reward");
+                return null;
             }
             while (flag2)
             {
@@ -59,9 +69,11 @@ namespace RainbowRewards
                             flag3 = true;
                     }
                 }
+                LogDebug($"GetRandomCardByClass - Adding {_cardData.Id}");
                 int rarity = UnityEngine.Random.Range(0, 100);
                 string id = _cardData.Id;
                 _cardData = Globals.Instance.GetCardData(Functions.GetCardByRarity(rarity, _cardData), false);
+                LogDebug($"GetRandomCardByClass - Upgraded Version {_cardData.Id}");
                 if ((UnityEngine.Object)_cardData == (UnityEngine.Object)null)
                 {
                     flag2 = true;
@@ -81,6 +93,7 @@ namespace RainbowRewards
             }
             return _cardData;
         }
+
 
 
 
