@@ -21,14 +21,13 @@ namespace RainbowRewards
             List<string> stringList1 = new List<string>(Globals.Instance.CardListNotUpgradedByClass[cardClass]);
             int num10 = UnityEngine.Random.Range(0, 100);
             bool flag2 = true;
+            if (tierReward == null)
+            {
+                tierReward = Globals.Instance.GetTierRewardData(GetTierRewardNum());
+            }
             if (AtOManager.Instance?.TeamHaveItem("rainbowrewardsrainbowprismrare") ?? false)
             {
                 tierReward = Globals.Instance?.GetTierRewardData(tierReward.TierNum + 1) ?? tierReward;
-            }
-            bool testing = true;
-            if (testing)
-            {
-                tierReward = Globals.Instance.GetTierRewardData(4);
             }
             if (tierReward == null)
             {
@@ -95,7 +94,31 @@ namespace RainbowRewards
         }
 
 
-
+        public static int GetTierRewardNum()
+        {
+            if(RewardsManager.Instance == null)
+            {
+                TierRewardData tierReward = Traverse.Create(RewardsManager.Instance).Field("tierReward").GetValue<TierRewardData>();
+                if(tierReward == null)
+                {
+                    return 0;
+                }
+                return tierReward.TierNum;
+            }
+            if(AtOManager.Instance.GetTownDivinationTier() != null)
+            {
+                return AtOManager.Instance.GetTownDivinationTier().TierNum;
+            }
+            if(AtOManager.Instance.GetEventRewardTier() != null)
+            {
+                return AtOManager.Instance.GetEventRewardTier().TierNum;
+            }
+            if(AtOManager.Instance.GetTeamNPC().Length != 0)
+            {
+                return AtOManager.Instance.GetTeamNPCReward().TierNum;
+            }            
+            return 0;
+        }
 
     }
 }

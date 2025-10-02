@@ -106,8 +106,15 @@ namespace RainbowRewards
 					LogDebug($"ShowRewardsPrefix - Adding  {_cardData?.Id ?? "null card"}");
 					if (_cardData == null)
 					{
-						LogError("ShowRewardsPrefix - Null CardData");
-						continue;
+						if(cardsByOrderLocal[key].Length < index1)
+						{
+							arr2[index1] = cardsByOrderLocal[key][index1];
+						}
+						else
+						{
+							arr2[index1] = cardsByOrderLocal[key][0];
+						}
+						LogDebug($"ShowRewardsPrefix - Null CardData, replaced with {cardsByOrderLocal[key][index1]}");
 					}
 					arr2[index1] = _cardData.Id;
 

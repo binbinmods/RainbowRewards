@@ -1,3 +1,7 @@
+# 1.2.1
+
+Should properly get the TierNum
+
 # 1.2.0
 
 Fixed Null Reference
